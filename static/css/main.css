@@ -1,0 +1,39 @@
+html{
+    scroll-behavior: smooth;
+}
+
+body{
+    font-family: sans-serif;
+}
+
+#welcome{
+    height: 750px;
+    /* background-image:  */
+    background: linear-gradient( rgba(0,0,0,0.5), rgba(0, 0, 0, 0.5) ),url("../aset/groudn-children.jpg");
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-attachment: fixed;
+    background-position: center;
+    display: flex;
+    /* justify-content: center; */
+    flex-direction: column;
+    
+}
+
+.title-welcome{
+    color: white;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    margin-top:220px;
+    text-align: center;
+}
+
+.title-welcome h1{
+    font-size: 3rem;
+}
+
+#result{
+    height: 950px;
+}

@@ -1,0 +1,233 @@
+{% extends 'base.html' %}
+
+{% block head %}
+<title>Home Page</title>
+{% endblock %}
+
+<!-- komponen navbar -->
+{% block navbar %}
+{% include 'navbar.html' %}
+{% endblock %}
+
+{% block welcome %}
+<section id="welcome">
+    <div class="title-welcome">
+        <h1><b>Check What Your Country need based on data you got</b></h1>
+        <h2>SaveTheWorld.org</h2>
+        <p>A web Application based on K-means Clustering Model <br> to predict what type of country you're live in and
+            <br> to see what kind of things you can do to make it into a better place
+        </p>
+        <a href="#form"><button type="submit" class="btn btn-success">Check it out now !</button></a>
+    </div>
+
+</section>
+{% endblock %}
+
+<!-- komponen form -->
+{% block form %}
+
+<section id="form" class="container">
+    <br><br>
+    <h1>Masukkan Data</h1><br><br>
+    <form action='/predict#result' method='POST'>
+        <div class="row">
+            <div class="col-lg-6">
+                <div class="form-group">
+                    <label for="exampleInputEmail1">Country Name</label>
+                    <input type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp"
+                        placeholder="Enter Child Mortality" name="country">
+
+                </div>
+                <div class="form-group">
+                    <label for="exampleInputEmail1">Child Mortality</label>
+                    <input type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp"
+                        placeholder="Enter Child Mortality" name="child_mort">
+
+                </div>
+                <div class="form-group">
+                    <label for="exampleInputPassword1">Exports</label>
+                    <input type="text" class="form-control" id="exampleInputPassword1" placeholder="Enter Exports"
+                        name="exports">
+                </div>
+
+                <div class="form-group">
+                    <label for="exampleInputEmail1">Healt</label>
+                    <input type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp"
+                        placeholder="Enter Healt" name="healt">
+
+                </div>
+                <div class="form-group">
+                    <label for="exampleInputPassword1">Imports</label>
+                    <input type="text" class="form-control" id="exampleInputPassword1" placeholder="Enter Imports"
+                        name="import">
+                </div>
+            </div>
+            <div class="col-lg-6">
+
+                <div class="form-group">
+                    <label for="exampleInputEmail1">Income</label>
+                    <input type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp"
+                        placeholder="Enter Income" name="income">
+
+                </div>
+                <div class="form-group">
+                    <label for="exampleInputEmail1">Inflation</label>
+                    <input type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp"
+                        placeholder="Enter Inflation" name="inflation">
+
+                </div>
+                <div class="form-group">
+                    <label for="exampleInputPassword1">Life Expectancy</label>
+                    <input type="text" class="form-control" id="exampleInputPassword1"
+                        placeholder="Enter Life Expectancy" name="life_expec">
+                </div>
+
+                <div class="form-group">
+                    <label for="exampleInputEmail1">Total Fertility</label>
+                    <input type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp"
+                        placeholder="Enter Total Fertility" name="total_fer">
+
+                </div>
+                <div class="form-group">
+                    <label for="exampleInputPassword1">GDP per Capita</label>
+                    <input type="text" class="form-control" id="exampleInputPassword1"
+                        placeholder="Enter GDP per Capita" name="gdpp">
+                </div>
+            </div>
+        </div>
+
+        <button type="submit" class="btn btn-primary">Submit</button>
+    </form>
+    <br><br><br><br>
+</section>
+
+<section id="result">
+    <div class="container shadow-lg p-4 mb-5 bg-white rounded cont-res">
+        <br>
+        <h1>Hasil Prediksi</h1>
+        <br>
+        <div>
+            <ul>
+                {% if result_value["country"] and result_value["cluster"]%}
+                <li>Country Name : {{ result_value["country"] }}</li>
+                <li>Hasil Prediksi : <b>{{ result_value["cluster"] }}</b></li>
+                {% endif %}
+            </ul>
+        </div>
+        <table class="table table-hover">
+            <thead>
+                <tr>
+                    <th scope="col">#</th>
+                    <th scope="col">Field</th>
+                    <th scope="col">Value</th>
+                    <th scope="col">Prediction</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <th scope="row">1</th>
+                    <td>Contry Name</td>
+                    <td>{{ result_value["country"] }}</td>
+                    <td rowspan="10"
+                        style="vertical-align : middle;text-align:center; background-color: {{ result_value['color'] }}; color: white;">
+                        <h3><b>{{ result_value["cluster"] }}</b></h3>
+                    </td>
+                </tr>
+                <tr>
+                    <th scope="row">2</th>
+                    <td>Child Mortality</td>
+                    <td>{{ result_value["child_mort"] }}</td>
+                    <!-- <td  >@fat</td> -->
+                </tr>
+                <tr>
+                    <th scope="row">3</th>
+                    <td>Exports</td>
+                    <td>{{ result_value["exports"] }}</td>
+                </tr>
+                <tr>
+                    <th scope="row">4</th>
+                    <td>Healt</td>
+                    <td>{{ result_value["healt"] }}</td>
+                </tr>
+                <tr>
+                    <th scope="row">5</th>
+                    <td>Imports</td>
+                    <td>{{ result_value["import"] }}</td>
+                </tr>
+                <tr>
+                    <th scope="row">6</th>
+                    <td>Income</td>
+                    <td>{{ result_value["income"] }}</td>
+                </tr>
+                <tr>
+                    <th scope="row">7</th>
+                    <td>Inflation</td>
+                    <td>{{ result_value["inflation"] }}</td>
+                </tr>
+                <tr>
+                    <th scope="row">8</th>
+                    <td>Life Expectancy</td>
+                    <td>{{ result_value["life_expec"] }}</td>
+                </tr>
+                <tr>
+                    <th scope="row">9</th>
+                    <td>Total Fertility</td>
+                    <td>{{ result_value["total_fer"] }}</td>
+                </tr>
+                <tr>
+                    <th scope="row">10</th>
+                    <td>GDP per Capita</td>
+                    <td>{{ result_value["gdpp"] }}</td>
+                </tr>
+            </tbody>
+        </table>
+
+        <br><br>
+
+    </div>
+</section>
+<section>
+    <footer class="bg-dark text-center text-white ">
+        <!-- Grid container -->
+        <div class="container p-4 pb-0">
+            <!-- Section: Social media -->
+            <section class="mb-4">
+                <!-- Facebook -->
+                <a class="btn btn-outline-light btn-floating m-1" href="#!" role="button"><i
+                        class="fab fa-facebook-f"></i></a>
+
+                <!-- Twitter -->
+                <a class="btn btn-outline-light btn-floating m-1" href="#!" role="button"><i
+                        class="fab fa-twitter"></i></a>
+
+                <!-- Google -->
+                <a class="btn btn-outline-light btn-floating m-1" href="#!" role="button"><i
+                        class="fab fa-google"></i></a>
+
+                <!-- Instagram -->
+                <a class="btn btn-outline-light btn-floating m-1" href="#!" role="button"><i
+                        class="fab fa-instagram"></i></a>
+
+                <!-- Linkedin -->
+                <a class="btn btn-outline-light btn-floating m-1" href="#!" role="button"><i
+                        class="fab fa-linkedin-in"></i></a>
+
+                <!-- Github -->
+                <a class="btn btn-outline-light btn-floating m-1"
+                    href="https://github.com/BenhardSim/Flask-Clustering_Application" role="button"><i
+                        class="fab fa-github"></i></a>
+            </section>
+            <!-- Section: Social media -->
+        </div>
+        <!-- Grid container -->
+
+        <!-- Copyright -->
+        <div class="text-center p-3" style="background-color: rgba(0, 0, 0, 0.2);">
+            © 2022 Copyright:
+            <a class="text-white" href="#welcome">Kelompok Machine Learning</a>
+        </div>
+        <!-- Copyright -->
+    </footer>
+</section>
+
+{% endblock %}
